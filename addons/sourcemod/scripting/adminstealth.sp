@@ -3,7 +3,7 @@
 #include <sdkhooks>
 #include <cstrike>
 
-#define VERSION "1.01"
+#define VERSION "1.02"
 
 int g_PlayerManager = -1;
 bool g_IsStealthed[MAXPLAYERS+1] = {false, ...};
@@ -40,7 +40,7 @@ public void OnClientPutInServer(int client)
 public void Hook_PlayerManagetThinkPost(int entity)
 {
   for (int i = 1; i <= MaxClients; ++i) {
-    if (IsClientConnected(i)) {
+    if (IsClientInGame(i)) {
       if (GetClientTeam(i) == CS_TEAM_SPECTATOR && g_IsStealthed[i]) {
         SetEntProp(entity, Prop_Send, "m_bConnected", false, _, i);
       }
